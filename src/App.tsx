@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom"
 import { UsersList } from "./components/UsersList"
 import { CreateUser } from "./components/CreateUser"
+import { DetailInfo } from "./components/DetailInfo"
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       <Routes>
         <Route path="/" element={<UsersList />} />
         <Route path="/create-user" element={<CreateUser />} />
+        <Route path="/student-info/:id" element={<DetailInfo />} />
       </Routes>
     </div>
   )

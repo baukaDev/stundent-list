@@ -31,3 +31,10 @@ export const createUser = async (userData: {
   )
   return response.data
 }
+
+export const fetchUserById = async (id: string): Promise<Users> => {
+  const response = await axios.get(
+    `https://68f28946b36f9750deecf3a7.mockapi.io/dash/v1/users/${id}`
+  )
+  return response.data
+}

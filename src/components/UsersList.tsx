@@ -10,12 +10,14 @@ import {
   TableHeader,
   TableRow,
 } from "./ui/table"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 export const UsersList: React.FC = () => {
   const [users, setUsers] = useState<Users[]>([])
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     // Fetch users and set state
@@ -40,6 +42,7 @@ export const UsersList: React.FC = () => {
   return (
     <>
       {error && <p style={{ color: "red" }}>{error}</p>}
+      {loading && <div>Загрузка...</div>}
 
       {
         <div>
@@ -61,7 +64,6 @@ export const UsersList: React.FC = () => {
             </div>
           </div>
           <Table>
-            {/* {loading && <p>Загрузка студентов...</p>} */}
             <TableCaption>Список студентов</TableCaption>
             <TableHeader>
               <TableRow>
@@ -75,6 +77,7 @@ export const UsersList: React.FC = () => {
               {users.map((user) => (
                 <TableRow
                   key={user.id}
+                  onClick={() => navigate(`/student-info/${user.id}`)}
                   className="hover:bg-gray-100 cursor-pointer"
                 >
                   <TableCell>{user.firstName}</TableCell>
