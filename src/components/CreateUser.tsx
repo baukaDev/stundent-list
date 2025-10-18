@@ -19,11 +19,27 @@ export const CreateUser: React.FC = () => {
   const [email, setEmail] = useState<string>("")
   const [kurs, setKurs] = useState<number>(1)
 
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
+
   const navigate = useNavigate()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     console.log("Creating user:", { firstName, lastName, email })
+
+    const newErrors: Record<string, string> = {}
+    if (!firstName.trim()) newErrors.firstName = "Введите имя"
+    if (!lastName.trim()) newErrors.lastName = "Введите фамилию"
+    if (!email.trim()) newErrors.email = "Введите email"
+    if (!telNumber.trim()) newErrors.telNumber = "Введите телефон"
+    if (!group.trim()) newErrors.group = "Введите направление"
+
+    if (Object.keys(newErrors).length > 0) {
+      console.log("Validation errors:", newErrors)
+      return
+    }
+
+    setIsSubmitting(true)
 
     try {
       const response = await createUser({
@@ -34,6 +50,7 @@ export const CreateUser: React.FC = () => {
         group,
         kurs,
       })
+      navigate("/")
 
       return response.email
     } catch (error) {
@@ -46,8 +63,6 @@ export const CreateUser: React.FC = () => {
       setGroup("")
       setKurs(1)
     }
-
-    navigate("/")
   }
 
   return (
@@ -156,10 +171,14 @@ export const CreateUser: React.FC = () => {
           <div>
             <button
               type="submit"
-              onClick={() => navigate("/")}
-              className="w-full px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+              disabled={isSubmitting}
+              className={`w-full px-4 py-2 bg-green-600 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 ${
+                isSubmitting
+                  ? "opacity-60 cursor-not-allowed"
+                  : "hover:bg-green-700"
+              }`}
             >
-              Создать пользователя
+              {isSubmitting ? "Сохраняю..." : "Создать пользователя"}
             </button>
             <button
               className="w-full px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 cursor-pointer mt-4"
