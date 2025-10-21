@@ -44,3 +44,22 @@ export const deleteUser = async (id: string): Promise<void> => {
     `https://68f28946b36f9750deecf3a7.mockapi.io/dash/v1/users/${id}`
   )
 }
+
+export const updateUser = async (
+  id: string,
+  updateData: {
+    firstName?: string
+    lastName?: string
+    email?: string
+    telNumber?: string
+    group?: string
+    kurs?: number
+  }
+): Promise<Users> => {
+  const response = await axios.put(
+    `https://68f28946b36f9750deecf3a7.mockapi.io/dash/v1/users/${id}`,
+    updateData
+  )
+
+  return response.data
+}

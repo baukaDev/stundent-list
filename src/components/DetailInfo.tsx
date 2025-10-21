@@ -141,7 +141,10 @@ export const DetailInfo: React.FC = () => {
           <div className="mt-6">
             <div className="flex items-center gap-4 justify-between">
               <div>
-                <button className="p-4 bg-muted/5 rounded-md border border-border cursor-pointer hover:bg-primary hover:text-primary-foreground">
+                <button
+                  onClick={() => navigate(`/edit-user/${user.id}`)}
+                  className="p-4 bg-muted/5 rounded-md border border-border cursor-pointer hover:bg-primary hover:text-primary-foreground"
+                >
                   Изменить {user.firstName} {user.lastName}
                 </button>
               </div>
