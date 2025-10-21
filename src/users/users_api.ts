@@ -38,3 +38,9 @@ export const fetchUserById = async (id: string): Promise<Users> => {
   )
   return response.data
 }
+
+export const deleteUser = async (id: string): Promise<void> => {
+  await axios.delete(
+    `https://68f28946b36f9750deecf3a7.mockapi.io/dash/v1/users/${id}`
+  )
+}
